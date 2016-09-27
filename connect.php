@@ -1,6 +1,5 @@
 <?php
-
-
+session_start();
 
 $servername = "localhost";
 $username = "root";
@@ -23,6 +22,8 @@ catch(PDOException $e)
      echo $e->getMessage();
 }
 
+include_once 'class.user.php';
+$user = new user($conn);
 
 //include_once 'class.user.php';
 //$user = new USER($DB_con);
