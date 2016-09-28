@@ -2,7 +2,7 @@
 require_once "connect.php";
 if($user->is_loggedin()!="")
 	{
-	 $user->redirect('head.php');
+	 $user->redirect('home.php');
 	}
 if(isset($_POST['username']))
 {
@@ -12,7 +12,7 @@ if(isset($_POST['username']))
   
  	if($user->login($uname,$upass))
  	{
- 	 $user->redirect('head.php');
+ 	 $user->redirect('home.php');
  	}
  	else
  	{

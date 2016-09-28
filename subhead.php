@@ -1,32 +1,7 @@
 <?php
-//require "connect.php";
-echo "<form action='' method=''> <textarea name='task' cols='20' rows='5'></textarea><br>";
-class subhead{
-	
-	private $name;
-	
+	$stmt = $conn->prepare("SELECT * FROM taskalloted WHERE username=:name"); 
+    $stmt->execute(array(":name"=>$name));
+    $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 
-	function subhead($subhead){
-		$this->name = $subhead;
-		echo "<input type='checkbox' name='subhead' value=".$subhead.">".$this->name."<br>";
-	}
-}
-$i = 0;
-try{
-	$stmt = $conn->prepare("SELECT username FROM taskalloted WHERE work=''"); 
-    $stmt->execute();
-
-    // set the resulting array to associative
-    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
-    foreach($stmt->fetchAll() as $v) {
-    	//echo $v['username'];
-        $member[i] = new subhead($v['username']);
-        $i++;
-    }
-
-}
-catch(PDOException $e){
-	echo "Error: " . $e->getMessage();
-}
-echo "<input type='submit' name='submit' value='Alott Task'></form>"
+    echo "Task Alloted : ".$userRow["work"]."<br> By: ".$userRow['head'];
 ?>
