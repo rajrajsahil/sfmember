@@ -24,7 +24,7 @@ $name = $userRow['name'];
 </body>
 </html>
 <?php
-if($userRow['id']<10){
+if($userRow['designation']=='head'){
     include "head.php";
 }
 else{

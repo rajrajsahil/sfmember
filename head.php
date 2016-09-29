@@ -1,5 +1,5 @@
 <?php
-//require "connect.php";
+require "connect.php";
 
 
 echo "<form action='head.php' method='post'> <textarea name='task' cols='20' rows='5'></textarea><br>";
