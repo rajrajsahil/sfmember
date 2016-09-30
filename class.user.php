@@ -8,13 +8,13 @@ class user {
     {
        try
        {
-          $stmt = $this->db->prepare("SELECT * FROM login_detail WHERE username=:uname AND password=:upass LIMIT 1");
+          $stmt = $this->db->prepare("SELECT * FROM membercredentials WHERE name=:uname AND password=:upass LIMIT 1");
           $stmt->execute(array(':uname'=>$uname, ':upass'=>$upass));
           $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
           if($stmt->rowCount() > 0)
           {
              
-                $_SESSION['user_session'] = $userRow['username'];
+                $_SESSION['user_session'] = $userRow['name'];
                 return true;
              
              
@@ -31,7 +31,7 @@ class user {
        {
            
    
-           $stmt = $this->db->prepare("INSERT INTO work_completed(username,workdone,given_by) 
+           $stmt = $this->db->prepare("INSERT INTO taskdone(name,workdone,given_by) 
                                                        VALUES(:uname, :uwork, :ugiven_by)");
               
            $stmt->bindparam(":uname", $name);

@@ -18,7 +18,7 @@
  	});
 });*/
 
-$('#submit').on('click',function(){
+/*$('#submit').on('click',function(){
 	//alert("hai")
 	var that = $(document),
 	
@@ -27,7 +27,7 @@ $('#submit').on('click',function(){
 	var epassword = $("#password").val();
 	//alert(ename + epassword);
 	data["name"]=ename;
-	data["password"]=epassword;
+	data["password"]=epassword;*/
 	/*that.find('[name]').each(function(index,value){
 		var that=$(this);
 		 name =that.attr('name'),
@@ -35,7 +35,7 @@ $('#submit').on('click',function(){
 		 data[name]=value;
 		 
 	});*/
-	$.ajax({
+	/*$.ajax({
 
 		url:"head.php",
 		type:"post",
@@ -48,5 +48,61 @@ $('#submit').on('click',function(){
 		}
 	});
 	return false;
+});*/
+
+$("#view_edit").hide();
+
+$(".alltask").click(function(){
+	$("#view_edit").toggle();
 });
+$("#changetask").click(function(){
+	var task = $("#task").val();
+	alert(task);
+});
+$(document).click(function(){
+	var abc = $(this).class();
+	alert(abc);
+});
+$("button").click(function(){
+	//alert("ypppp");
+var me = $(this).attr('class');
+//alert(me);
+if(me!="alltask"){
+	//alert(me);
+var id = '#'+me;
+var work = $(id).val();
+//alert(work);
+
+//var head = $("input[name = me]").val();
+//alert(head);
+//alert(work);
+
+$.ajax({
+	type: "POST",
+    url: "update.php",
+    data: {sname : me , task : work},
+    cache: false,
+    success: function(data){
+     alert(data);
+  }
+
+});
+}
+//alert(me);
+});
+$("input[type=submit]").click(function(){
+	var name = $(this).attr('class');
+	//alert(name);
+	$.ajax({
+	type: "POST",
+    url: "delete.php",
+    data: {sname : name},
+    cache: false,
+    success: function(data){
+     alert(data);
+  }
+
+});
+});
+
 

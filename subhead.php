@@ -1,20 +1,21 @@
 <?php
-    require_once "connect.php";
+    //require_once "connect.php";
     $name = $_SESSION['user_session'];
-	$stmt = $conn->prepare("SELECT * FROM work_detail WHERE username=:name"); 
+	$stmt = $conn->prepare("SELECT * FROM taskalloted WHERE username=:name"); 
     $stmt->execute(array(":name"=>$name));
     $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
-    echo "Task Alloted : ".$userRow["work"]."<br> By:".$userRow["given_by"] ;
+    echo "Task Alloted : ".$userRow["work"]."<br> By:".$userRow["head"] ;
     $uwork=$userRow["work"];
-    $ugiven_by=$userRow["given_by"];
+    $ugiven_by=$userRow["head"];
  
   if (isset($_POST['submit'])&& $uwork!="") {
     if (!empty($_POST['grade'])) {
      if($user->register($name,$uwork,$ugiven_by)){
-     	echo "success";}
+     	echo "success";
+     }
      
-     $stmt = $conn->prepare("UPDATE work_detail  SET work = :work,given_by =:given_by WHERE username= :name ");
-     $work="";
+     $stmt = $conn->prepare("UPDATE taskalloted  SET work = :work,head =:given_by WHERE username= :name ");
+     $work="NO Task";
      $given_by="";
      $stmt->bindValue(":name", $name);
      $stmt->bindValue(":work", $work);
@@ -24,6 +25,7 @@
      header("Refresh:0");
 }
     
+
 ?>
 
 <html>
@@ -55,8 +57,8 @@
                          class subhead{
 	                         private $name;
 	                          function subhead($subhead,$work,$given_by){
-		                     if($work==NULL){
-			                 $work="no work";
+		                     if($work=="No Task"){
+
 			                 $given_by="N.A";
 		                     }
 
@@ -65,14 +67,14 @@
                             }
                         $i = 0;
                         try{
-	                         $stmt = $conn->prepare("SELECT * FROM work_detail "); 
+	                         $stmt = $conn->prepare("SELECT * FROM taskalloted "); 
                              $stmt->execute();
 
     // set the resulting array to associative
                               $result = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
                                foreach($stmt->fetchAll() as $v) {
     	//echo $v['username'];
-    	                       $member[$i] = new subhead($v['username'],$v['work'],$v['given_by']);
+    	                       $member[$i] = new subhead($v['username'],$v['work'],$v['head']);
                                  $i++;
                              }}
                            catch(PDOException $e){
@@ -87,9 +89,9 @@
                       <?php
                           class allsubhead{
 	                         private $name;
-	                         function allsubhead($subhead,$work){
-		                    if($work==NULL){
-			                 $work="no work";
+	                         function allsubhead($subhead,$work,$given_by){
+		                    if($work=="No Task"){
+			                 //$work="no work";
 			                 $given_by="N.A";
 			                 }
                            echo $subhead." "."-work completed: ".$work."<br>"."given by"." - ".$given_by."<br>" ;
@@ -97,14 +99,14 @@
                             }
                           $i = 0;
                           try{
-                             $stmt = $conn->prepare("SELECT * FROM work_completed "); 
+                             $stmt = $conn->prepare("SELECT * FROM taskdone"); 
                              $stmt->execute();
 
                              $result = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
                               foreach($stmt->fetchAll() as $v) {
     	//echo $v['username'];
     	
-                               $member[$i] = new allsubhead($v['username'],$v['workdone'],$v['given_by']);
+                               $member[$i] = new allsubhead($v['name'],$v['workdone'],$v['given_by']);
                                $i++;
                              }
 

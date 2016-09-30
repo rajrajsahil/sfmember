@@ -1,15 +1,19 @@
 
 <?php
-require_once "connect.php";
+include_once "connect.php";
 if(!$user->is_loggedin())
 {
  $user->redirect('index.php');
 }
-$name = $_SESSION['user_session'];
-$stmt = $conn->prepare("SELECT * FROM login_detail WHERE username=:name");
+include "class.diffrentiate.php";
+/*$name = $_SESSION['user_session'];
+$stmt = $conn->prepare("SELECT * FROM membercredentials WHERE name=:name");
 $stmt->execute(array(":name"=>$name));
 $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
-$name = $userRow['username'];
+$uname = $userRow['name'];
+$position = $userRow['position'];*/
+//echo $userRow['name'];
+//include "subhead.php";
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,16 +21,18 @@ $name = $userRow['username'];
     <title></title>
 </head>
 <body>
-<h3><?php echo $name;
+<h3><?php echo $uname;
 ?></h3>
- <label><a href="logout.php?logout=true"><i class="glyphicon glyphicon-log-out"></i> logout</a></label>
+<label><a href="logout.php?logout=true"><i class="glyphicon glyphicon-log-out"></i> logout</a></label>
 </body>
 </html>
 <?php
-if($userRow['designation']=='head'){
+if($position=="head"){
     include "head.php";
 }
-if($userRow['designation']=='subhead'){
- include "subhead.php";}
+else{
+    include "subhead.php";
+}
+
 ?>
 

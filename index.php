@@ -5,13 +5,15 @@ if($user->is_loggedin()!="")
 	 $user->redirect('home.php');
 	}
 if(isset($_POST['username']))
-{
+{   
+
  	$uname = $_POST['username'];
  	$upass = $_POST['password'];
  
   
  	if($user->login($uname,$upass))
  	{
+ 		//echo  $_SESSION['user_session'];
  	 $user->redirect('home.php');
  	}
  	else
