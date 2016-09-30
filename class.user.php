@@ -8,13 +8,13 @@ class user {
     {
        try
        {
-          $stmt = $this->db->prepare("SELECT * FROM login WHERE username=:uname AND password=:upass LIMIT 1");
+          $stmt = $this->db->prepare("SELECT * FROM login_detail WHERE username=:uname AND password=:upass LIMIT 1");
           $stmt->execute(array(':uname'=>$uname, ':upass'=>$upass));
           $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
           if($stmt->rowCount() > 0)
           {
              
-                $_SESSION['user_session'] = $userRow['name'];
+                $_SESSION['user_session'] = $userRow['username'];
                 return true;
              
              
@@ -25,6 +25,27 @@ class user {
            echo $e->getMessage();
        }
    }
+   public function register($name,$work,$given_by)
+    {
+       try
+       {
+           
+   
+           $stmt = $this->db->prepare("INSERT INTO work_completed(username,workdone,given_by) 
+                                                       VALUES(:uname, :uwork, :ugiven_by)");
+              
+           $stmt->bindparam(":uname", $name);
+           $stmt->bindparam(":uwork", $work);
+           $stmt->bindparam(":ugiven_by", $given_by);            
+           $stmt->execute(); 
+   
+           return $stmt; 
+       }
+       catch(PDOException $e)
+       {
+           echo $e->getMessage();
+       }    
+    }
    public function is_loggedin()
    {
       if(isset($_SESSION['user_session']))
