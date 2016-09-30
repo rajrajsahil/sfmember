@@ -1,28 +1,53 @@
 <?php
+    require_once "connect.php";
+    $name = $_SESSION['user_session'];
 	$stmt = $conn->prepare("SELECT * FROM work_detail WHERE username=:name"); 
     $stmt->execute(array(":name"=>$name));
     $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
     echo "Task Alloted : ".$userRow["work"]."<br> By:".$userRow["given_by"] ;
+    $uwork=$userRow["work"];
+    $ugiven_by=$userRow["given_by"];
+ 
+  if (isset($_POST['submit'])&& $uwork!="") {
+    if (!empty($_POST['grade'])) {
+     if($user->register($name,$uwork,$ugiven_by)){
+     	echo "success";}
+     
+     $stmt = $conn->prepare("UPDATE work_detail  SET work = :work,given_by =:given_by WHERE username= :name ");
+     $work="";
+     $given_by="";
+     $stmt->bindValue(":name", $name);
+     $stmt->bindValue(":work", $work);
+     $stmt->bindValue(":given_by",$given_by);
+     $stmt->execute();
+     }
+     header("Refresh:0");
+}
+    
 ?>
 
 <html>
      <head>
      </head>
      <body>
+
+<form action="home.php" method="post">
+<input type="checkbox" name="grade" value="yes"><br>
+  <input type="submit" name="submit" value="submit">
+</form>
+
+
          <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
          <script>
                $(document).ready(function(){
            	   $("div").hide();
-               $("#hide").click(function(){
-               $("div").hide();
-                  });
                $("#show").click(function(){
                $("div").show();
                   });
-               });
+               })
          </script>
          </br>
-         <button id="hide">ALL TASK-hide</button>
+        
          <button id="show">ALL TASK-show</button>
        <div>
               <p>
@@ -32,7 +57,9 @@
 	                          function subhead($subhead,$work,$given_by){
 		                     if($work==NULL){
 			                 $work="no work";
+			                 $given_by="N.A";
 		                     }
+
 		                     echo $subhead." "."-work alloted: ".$work."<br>"."given by"." - ".$given_by."<br>" ;
 	                         }
                             }
@@ -63,8 +90,9 @@
 	                         function allsubhead($subhead,$work){
 		                    if($work==NULL){
 			                 $work="no work";
+			                 $given_by="N.A";
 			                 }
-                           echo $subhead." "."-work alloted: ".$work."<br>"."given by"." - ".$given_by."<br>" ;
+                           echo $subhead." "."-work completed: ".$work."<br>"."given by"." - ".$given_by."<br>" ;
                             }
                             }
                           $i = 0;
