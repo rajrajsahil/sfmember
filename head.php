@@ -15,7 +15,7 @@ class subhead{
 }
 $i = 0;
 try{
-	$stmt = $conn->prepare("SELECT username FROM login_detail WHERE work=''"); 
+	$stmt = $conn->prepare("SELECT username FROM taskalloted WHERE work=''"); 
     $stmt->execute();
 
     // set the resulting array to associative
