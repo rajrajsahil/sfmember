@@ -1,7 +1,20 @@
 <?php
 require "connect.php";
-$sname = $_POST['sname'];
-echo $sname;
+require "class.allottask.php";
+if(isset($_GET['username'])) {
+     $del = new allottask($conn);
+     $del->deletetask($_GET['username']);
+     //echo "dfuygbdjgbiur";
+     header('Location: home.php');
+
+}
+else if(isset($_POST['sname'],$_POST['task']))
+{
+    $del = new allottask($conn);
+    $val = $del->changetask($_POST['sname'],$_POST['task']);
+    echo $val;
+    //header('Location: home.php');
+}
 //$freesubhead->deletetask($sname);
 //if($user->is_loggedin()){
 //$user->redirect('index.php');}

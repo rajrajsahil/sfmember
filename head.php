@@ -8,13 +8,12 @@ $subhead = $_POST['subhead'];
 $j=0;
 if(!empty($work))
 {
+	$abc = new allottask($conn);
 	foreach ($subhead as $key => $value)
 	{
 		$allotto = $subhead[$key];
-		$abc[$j] = new allottask($conn);
 		//echo $work."<br".$uname."br".$allotto;
-		$abc[$j]->assignwork($work,$uname,$allotto);
-		$j++;
+		$abc->assignwork($work,$uname,$allotto);
 		//echo $allotto;
 		/*
 		try{
@@ -37,7 +36,13 @@ if(!empty($work))
 
 
 $freesubhead = new allottask($conn);
-$freesubhead->freesubheads();
+$f_sheads = $freesubhead->freesubheads();
+echo "<form action='home.php' method='post'> <textarea name='task' cols='20' rows='5'></textarea><br>";
+foreach ($f_sheads as $sh) {
+	// print_r($sh);
+	echo "<input type='checkbox' name='subhead[".$sh['username']."]' value = ".$sh['username'].">".$sh['username']."<br>";
+}
+echo "<input type='submit' name='submit' value='Alott Task'></form>";
 /*
 echo "<form action='home.php' method='post'> <textarea name='task' cols='20' rows='5'></textarea><br>";
 class subhead{
@@ -90,8 +95,25 @@ echo "<input type='submit' name='submit' value='Alott Task'></form>";
 <body>
 <button class="alltask">All Task</button>
 <div id="view_edit">
+
 	<?php
-	     $freesubhead->editanddeletetask($uname);
+	    $e_task = $freesubhead->editanddeletetask($uname);
+	    foreach ($e_task as $t)
+	    {
+	     	echo $t['username']."=".$t['work']."=".$t['head']."<br>";
+    		if($t['head'] == $uname)
+    		{   
+    			echo "<textarea id=".$t['username']." name='task' cols='20' rows='5'></textarea>";
+    			echo "<input type='text' name=".$t['username']." value=".$uname.">";
+    			echo "<button class=".$t['username'].">Change Task</button>";
+    			//echo "<a href='delete.php?username=".$t['username']."&'></a>";
+    			//echo "<input type='submit' class=".$t['username']." value='Remove task'><br>";
+    			echo "<label><a href='delete.php?delete=true&username=".$t['username']."' class=".$t['username']."><i class='glyphicon glyphicon-log-out'></i>Remove from Task</a></label><br>";
+
+    			//include "update.php";
+    		}
+	     	
+	    }
 		//class alltask{
 			//public function __construct(){
 			/*	$task = $conn->prepare("SELECT * FROM taskalloted"); 
@@ -117,7 +139,11 @@ echo "<input type='submit' name='submit' value='Alott Task'></form>";
 <button class="completedtask">Show compleated task</button>
 <div id="view">
 	<?php
-		$freesubhead->compleatedtask();
+		$c_task = $freesubhead->compleatedtask();
+		foreach($c_task as $c)
+		{
+			echo $c['name']."=>".$c['workdone']."=>".$c['given_by']."<br>";
+		}
 	?>
 </div>
 <script type="text/javascript" src="jquery.js"></script>

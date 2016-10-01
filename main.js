@@ -1,7 +1,8 @@
 $("#view").hide();
 $(".completedtask").click(function(){
 	$("#view").toggle();
-})
+});
+
 /*$(".completedtask").click(function(){
 	
 $.ajax({
@@ -69,22 +70,21 @@ $.ajax({
 $("#view_edit").hide();
 
 $(".alltask").click(function(){
+	//alert("dgdg");
 	$("#view_edit").toggle();
 });
 $("#changetask").click(function(){
 	var task = $("#task").val();
 	alert(task);
 });
-$(document).click(function(){
-	var abc = $(this).class();
-	alert(abc);
-});
+
 $("button").click(function(){
 	//alert("ypppp");
 var me = $(this).attr('class');
 //alert(me);
 if(me!="alltask"&&me!="completedtask"){
 	//alert(me);
+	//alert("ypppp");
 var id = '#'+me;
 var work = $(id).val();
 //alert(work);
@@ -95,7 +95,7 @@ var work = $(id).val();
 
 $.ajax({
 	type: "POST",
-    url: "update.php",
+    url: "delete.php",
     data: {sname : me , task : work},
     cache: false,
     success: function(data){
@@ -107,7 +107,7 @@ $.ajax({
 //alert(me);
 });
 
-$("a").click(function(){
+/*$("a").click(function(){
 	var name = $(this).attr('class');
 	//alert(name);
 	$.ajax({
@@ -120,6 +120,6 @@ $("a").click(function(){
   }
 
 });
-});
+});*/
 
 

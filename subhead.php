@@ -2,6 +2,7 @@
     include "class.allottask.php";
     //require_once "connect.php";
     $name = $_SESSION['user_session'];
+    $subhead = new allottask($conn);
 	 /*$stmt = $conn->prepare("SELECT * FROM taskalloted WHERE username=:name"); 
     $stmt->execute(array(":name"=>$name));
     $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
@@ -20,7 +21,7 @@
             {
      	          $subhead = new allottask($conn);
                 $subhead->deletetask($name);
-                echo "<i>success</i>";
+                //echo "<i>success</i>";
             }
      /*$stmt = $conn->prepare("UPDATE taskalloted  SET work = :work,head =:given_by WHERE username= :name ");
      $work="NO Task";
@@ -32,11 +33,16 @@
         }
      //header("Refresh:0");
     }
-    $subhead = new allottask($conn);
-    $subhead->gettask($name);
-    echo "Task Alloted : ".$subhead->uwork."<br> By:".$subhead->ugiven_by ;
-    $_SESSION['work']=$subhead->uwork;
-    $_SESSION['given_by']=$subhead->ugiven_by;
+    //$subhead = new allottask($conn);
+    $s_task = $subhead->gettask($name);
+    foreach ($s_task as $st) {
+      echo  "Task Alloted : ".$st['work']."<br> By:".$st['head'] ;
+      $_SESSION['work'] = $st['work'];
+      $_SESSION['given_by'] = $st['head'];
+    }
+    //echo "Task Alloted : ".$subhead->uwork."<br> By:".$subhead->ugiven_by ;
+    //$_SESSION['work']=$subhead->uwork;
+    //$_SESSION['given_by']=$subhead->ugiven_by;
 
     
 
@@ -44,31 +50,24 @@
 
 <html>
      <head>
-     </head>
+     
      <body>
 
 <form action="home.php" method="post">
-<input type="checkbox" name="grade" value="yes"><br>
+<label>completed Tasks<input type="checkbox" name="grade" value="yes"></label><br>
   <input type="submit" name="submit" value="submit">
 </form>
-
-
-         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-         <script>
-               $(document).ready(function(){
-           	   $("div").hide();
-               $("#show").click(function(){
-               $("div").show();
-                  });
-               })
-         </script>
-         </br>
-        
-        <button id="show">ALL TASK-show</button>
-          <div>
-            <p>
-	            <?php
-                  $subhead->viewtaskalloted();
+</br>
+<button id="show">ALL TASK-show</button>
+<div id="allotedtask">
+    <p>
+	      <?php 
+              
+            $alltedtask = $subhead->viewtaskalloted();
+            foreach ($alltedtask as $key)
+            {
+                echo $key['username']."=>".$key['work']."=>".$key['head']."<br>";
+            }
                          /*class subhead{
 	                         private $name;
 	                          function subhead($subhead,$work,$given_by){
@@ -97,13 +96,16 @@
                             }*/
 
 
-              ?>
-              </br>
-              <h3> work already completed</h3>
-            </p>
-            <p>
-                <?php
-                    $subhead->compleatedtask();
+        ?>
+      </br>
+      <h3> work already completed</h3>
+    </p>
+    <p>
+        <?php
+            $comp_task = $subhead->compleatedtask();
+            foreach ($comp_task as $ct) {
+              echo $ct['name']."=>".$ct['workdone']."=>".$ct['given_by']."<br>";
+            }
                           /*class allsubhead{
 	                         private $name;
 	                         function allsubhead($subhead,$work,$given_by){
@@ -131,11 +133,19 @@
                              catch(PDOException $e){
 	                         echo "Error: " . $e->getMessage();
                            }*/
-                    ?>
+        ?>
             </p>
+</div>
+      <script type="text/javascript" src="jquery.js"></script>
+      <!--  <script type="text/javascript" src="subhead.js"></script>-->
+      <script type="text/javascript">
+          $("#allotedtask").hide();
+          $("#show").click(function(){
+          //$("#allotedtask")
+          $("#allotedtask").toggle();
+          });
+      </script>
         
-        <script type="text/javascript" src="jquery.js"></script>
-        <script type="text/javascript" src="subhead.js"></script>
-        </div>
-     </body>
+      </body>
+      </head>
 </html>
