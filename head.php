@@ -1,16 +1,23 @@
 <?php
+include "class.allottask.php";
 //require "connect.php";
 $work = $_POST["task"];
 //echo $work;
 $subhead = $_POST['subhead'];
-include "class.allottask.php";
+//include "class.allottask.php";
 $j=0;
-if(!empty($work)){
-	foreach ($subhead as $key => $value) {
+if(!empty($work))
+{
+	foreach ($subhead as $key => $value)
+	{
 		$allotto = $subhead[$key];
-		$abc[$j] = new allottask($conn,$work,$uname,$allotto);
+		$abc[$j] = new allottask($conn);
+		//echo $work."<br".$uname."br".$allotto;
+		$abc[$j]->assignwork($work,$uname,$allotto);
+		$j++;
 		//echo $allotto;
-		/*try{
+		/*
+		try{
 		$stmt = $conn->prepare("UPDATE taskalloted SET work=:work, head=:uname WHERE username =:allotto");
 		$stmt->bindparam(":work", $work);
 		$stmt->bindparam(":uname", $uname);
@@ -20,8 +27,8 @@ if(!empty($work)){
 		catch(PDOException $e)
         {
            echo $e->getMessage();
-        }*/
-
+        }
+		*/
 		//$stmt->execute(array(":name"=>$name));
 	//echo $subhead[$key];
 	}
@@ -29,7 +36,9 @@ if(!empty($work)){
 }
 
 
-
+$freesubhead = new allottask($conn);
+$freesubhead->freesubheads();
+/*
 echo "<form action='home.php' method='post'> <textarea name='task' cols='20' rows='5'></textarea><br>";
 class subhead{
 	
@@ -70,7 +79,7 @@ foreach ($member as $key => $value) {
 
 echo "<input type='submit' name='submit' value='Alott Task'></form>";
 //echo $uname;
-
+*/
 ?>
 <!DOCTYPE html>
 <html>
@@ -82,9 +91,10 @@ echo "<input type='submit' name='submit' value='Alott Task'></form>";
 <button class="alltask">All Task</button>
 <div id="view_edit">
 	<?php
+	     $freesubhead->editanddeletetask($uname);
 		//class alltask{
 			//public function __construct(){
-				$task = $conn->prepare("SELECT * FROM taskalloted"); 
+			/*	$task = $conn->prepare("SELECT * FROM taskalloted"); 
     			$task->execute();
     			$result = $task->setFetchMode(PDO::FETCH_ASSOC);
     			foreach($task->fetchAll() as $t){
@@ -97,10 +107,17 @@ echo "<input type='submit' name='submit' value='Alott Task'></form>";
     							//include "update.php";
     						}
 
-						}
+						}*/
     			//}
 		////}
 		//$me = new alltask();
+	?>
+</div>
+
+<button class="completedtask">Show compleated task</button>
+<div id="view">
+	<?php
+		$freesubhead->compleatedtask();
 	?>
 </div>
 <script type="text/javascript" src="jquery.js"></script>

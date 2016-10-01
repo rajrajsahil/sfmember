@@ -1,29 +1,43 @@
 <?php
+    include "class.allottask.php";
     //require_once "connect.php";
     $name = $_SESSION['user_session'];
-	$stmt = $conn->prepare("SELECT * FROM taskalloted WHERE username=:name"); 
+	 /*$stmt = $conn->prepare("SELECT * FROM taskalloted WHERE username=:name"); 
     $stmt->execute(array(":name"=>$name));
     $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
     echo "Task Alloted : ".$userRow["work"]."<br> By:".$userRow["head"] ;
     $uwork=$userRow["work"];
-    $ugiven_by=$userRow["head"];
+    $ugiven_by=$userRow["head"];*/
+    
+
+
  
-  if (isset($_POST['submit'])&& $uwork!="") {
-    if (!empty($_POST['grade'])) {
-     if($user->register($name,$uwork,$ugiven_by)){
-     	echo "success";
-     }
-     
-     $stmt = $conn->prepare("UPDATE taskalloted  SET work = :work,head =:given_by WHERE username= :name ");
+    if (isset($_POST['submit'])&& $_SESSION['work']!="")
+    {
+        if (!empty($_POST['grade']))
+        {
+            if($user->register($name,$_SESSION['work'],$_SESSION['given_by']))
+            {
+     	          $subhead = new allottask($conn);
+                $subhead->deletetask($name);
+                echo "<i>success</i>";
+            }
+     /*$stmt = $conn->prepare("UPDATE taskalloted  SET work = :work,head =:given_by WHERE username= :name ");
      $work="NO Task";
      $given_by="";
      $stmt->bindValue(":name", $name);
      $stmt->bindValue(":work", $work);
      $stmt->bindValue(":given_by",$given_by);
-     $stmt->execute();
-     }
-     header("Refresh:0");
-}
+     $stmt->execute();*/
+        }
+     //header("Refresh:0");
+    }
+    $subhead = new allottask($conn);
+    $subhead->gettask($name);
+    echo "Task Alloted : ".$subhead->uwork."<br> By:".$subhead->ugiven_by ;
+    $_SESSION['work']=$subhead->uwork;
+    $_SESSION['given_by']=$subhead->ugiven_by;
+
     
 
 ?>
@@ -50,11 +64,12 @@
          </script>
          </br>
         
-         <button id="show">ALL TASK-show</button>
-       <div>
-              <p>
-	                 <?php
-                         class subhead{
+        <button id="show">ALL TASK-show</button>
+          <div>
+            <p>
+	            <?php
+                  $subhead->viewtaskalloted();
+                         /*class subhead{
 	                         private $name;
 	                          function subhead($subhead,$work,$given_by){
 		                     if($work=="No Task"){
@@ -79,15 +94,17 @@
                              }}
                            catch(PDOException $e){
 	                       echo "Error: " . $e->getMessage();
-                            }
+                            }*/
 
-                     ?>
+
+              ?>
               </br>
               <h3> work already completed</h3>
-              </p>
-              <p>
-                      <?php
-                          class allsubhead{
+            </p>
+            <p>
+                <?php
+                    $subhead->compleatedtask();
+                          /*class allsubhead{
 	                         private $name;
 	                         function allsubhead($subhead,$work,$given_by){
 		                    if($work=="No Task"){
@@ -113,9 +130,9 @@
                              }
                              catch(PDOException $e){
 	                         echo "Error: " . $e->getMessage();
-                           }
-                        ?>
-              </p>
+                           }*/
+                    ?>
+            </p>
         
         <script type="text/javascript" src="jquery.js"></script>
         <script type="text/javascript" src="subhead.js"></script>

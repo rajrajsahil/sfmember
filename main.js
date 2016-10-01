@@ -1,4 +1,20 @@
+$("#view").hide();
+$(".completedtask").click(function(){
+	$("#view").toggle();
+})
+/*$(".completedtask").click(function(){
+	
+$.ajax({
+	 //type: "POST",
+    url: "compleatedtask.php",
+    //data: {sname : ""},
+    cache: false,
+    success: function(data){
+     alert(data);
+  }
 
+});
+});*/
 /*$("#submit").click(function(){
 	alert("working");
  	data = {};
@@ -67,7 +83,7 @@ $("button").click(function(){
 	//alert("ypppp");
 var me = $(this).attr('class');
 //alert(me);
-if(me!="alltask"){
+if(me!="alltask"&&me!="completedtask"){
 	//alert(me);
 var id = '#'+me;
 var work = $(id).val();
@@ -90,7 +106,8 @@ $.ajax({
 }
 //alert(me);
 });
-$("input[type=submit]").click(function(){
+
+$("a").click(function(){
 	var name = $(this).attr('class');
 	//alert(name);
 	$.ajax({
@@ -99,7 +116,7 @@ $("input[type=submit]").click(function(){
     data: {sname : name},
     cache: false,
     success: function(data){
-     alert(data);
+     //alert(data);
   }
 
 });

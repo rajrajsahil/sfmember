@@ -39,7 +39,7 @@ class user {
            $stmt->bindparam(":ugiven_by", $given_by);            
            $stmt->execute(); 
    
-           return $stmt; 
+           return true; 
        }
        catch(PDOException $e)
        {

@@ -1,6 +1,12 @@
 <?php
-//session_start();
+require "connect.php";
 $sname = $_POST['sname'];
+echo $sname;
+//$freesubhead->deletetask($sname);
+//if($user->is_loggedin()){
+//$user->redirect('index.php');}
+//session_start();
+/*$sname = $_POST['sname'];
 $stask = "NO Task";
 $head = "";
 //echo $sname;
@@ -33,5 +39,5 @@ catch(PDOException $e)
 }
      //session_destroy();
      //unset($_SESSION['user_session']);
-     header("Location: home.php");
+     header("Location: home.php");*/
 ?>
