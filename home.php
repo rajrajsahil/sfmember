@@ -18,12 +18,29 @@ $position = $userRow['position'];*/
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+body {
+    background-color: #ea80fc;
+}
+h1{
+	font-family: Verdana;
+	text-align: center;
+	font-size: 45px;
+}
+#logout{
+	color: blue;
+	font-family: Verdana;
+	font-size: 30px;
+	float:centre;
+	margin-left: 45%;
+}
+</style>
     <title></title>
 </head>
 <body>
-<h3><?php echo $uname;
-?></h3>
-<label><a href="logout.php?logout=true"><i class="glyphicon glyphicon-log-out"></i> logout</a></label>
+<h1><?php echo "Welcome "."'".$uname."'";
+?></h1>
+<label><a href="logout.php?logout=true" id="logout"><i class="glyphicon glyphicon-log-out"></i> LOGOUT</a></label><br>
 </body>
 </html>
 <?php
