@@ -34,12 +34,7 @@
      //header("Refresh:0");
     }
     //$subhead = new allottask($conn);
-    $s_task = $subhead->gettask($name);
-    foreach ($s_task as $st) {
-      echo  "Task Alloted : ".$st['work']."<br> By:".$st['head'] ;
-      $_SESSION['work'] = $st['work'];
-      $_SESSION['given_by'] = $st['head'];
-    }
+    
     //echo "Task Alloted : ".$subhead->uwork."<br> By:".$subhead->ugiven_by ;
     //$_SESSION['work']=$subhead->uwork;
     //$_SESSION['given_by']=$subhead->ugiven_by;
@@ -50,23 +45,137 @@
 
 <html>
      <head>
-     
-     <body>
+        <style>
+         body {
+          background-color: #64ffda;
 
-<form action="home.php" method="post">
-<label>completed Tasks<input type="checkbox" name="grade" value="yes"></label><br>
-  <input type="submit" name="submit" value="submit">
+        }
+        #work{
+          border: 0px black solid ;
+          color:brown;
+          font-size: 25px;
+          text-align: center;
+          background-color: #ffcdd2;
+          margin-left: 10%;
+          margin-right: 10%;
+          font-family: Verdana;
+        }
+        
+        #getask{
+          font-size: 25px;
+          color:brown;
+          text-align: center;
+          border: 0px black solid;
+          background-color: #ffcdd2;
+          margin-left: 10%;
+          margin-right: 10%;
+           font-family: Verdana;
+          
+        }
+        #sub-form{
+          text-align:center;
+          font-size:25px;
+        }
+        label{
+          font-size: 20px;
+
+        }
+        .button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+     font-family: Verdana;
+}
+.button {
+    background-color: white;
+    color: black;
+    border: 2px solid #4CAF50;
+}
+
+.button:hover {
+    background-color: #4CAF50;
+    color: white;
+}  #show {
+
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+     font-family: Verdana;
+}
+#show {
+    background-color: white;
+    color: black;
+    border: 2px solid #4CAF50;
+}
+
+#show:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+#show{
+  margin-left: 43.5%;
+  margin-right: 40%;
+  text-align: center;
+
+}
+h2{
+  text-align: center;
+   font-family: Verdana;
+}
+        </style>
+     </head>
+     <body>
+     <br>
+<div id="getask">
+<br>
+<?php
+$s_task = $subhead->gettask($name);
+    foreach ($s_task as $st) {
+      echo  "TASK ALLOTED : ".$st['work']."<br> BY:".$st['head'] ;
+      $_SESSION['work'] = $st['work'];
+      $_SESSION['given_by'] = $st['head'];
+    }
+?>
+
+<br>
+<form action="home.php" method="post" id="sub-form">
+<label>Completed Task<input type="checkbox" name="grade" value="yes"></label><br><br>
+  <input type="submit" name="submit" value="submit" class="button">
+  <br>
 </form>
 </br>
+</div>
+<br>
 <button id="show">ALL TASK-show</button>
 <div id="allotedtask">
-    <p>
+<h2> WORK GOING ON:(username=>assignment=>given by)</h2>
+    <p id="work">
+    <br>
+
 	      <?php 
               
             $alltedtask = $subhead->viewtaskalloted();
             foreach ($alltedtask as $key)
             {
-                echo $key['username']."=>".$key['work']."=>".$key['head']."<br>";
+                echo $key['username']." => ".$key['work']." => ".$key['head']."<br><br>";
             }
                          /*class subhead{
 	                         private $name;
@@ -98,13 +207,13 @@
 
         ?>
       </br>
-      <h3> work already completed</h3>
+      <h2> WORK ALREADY COMPLETED:</h2>
     </p>
-    <p>
+    <p id="work">
         <?php
             $comp_task = $subhead->compleatedtask();
             foreach ($comp_task as $ct) {
-              echo $ct['name']."=>".$ct['workdone']."=>".$ct['given_by']."<br>";
+              echo $ct['name']." => "." ".$ct['workdone']." => "." ".$ct['given_by']. "<br>";
             }
                           /*class allsubhead{
 	                         private $name;
