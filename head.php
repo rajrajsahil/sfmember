@@ -37,12 +37,12 @@ if(!empty($work))
 
 $freesubhead = new allottask($conn);
 $f_sheads = $freesubhead->freesubheads();
-echo "<form action='home.php' method='post'> <textarea name='task' cols='20' rows='5'></textarea><br>";
+/*echo "<form action='home.php' method='post'> <textarea name='task' cols='20' rows='5'></textarea><br>";
 foreach ($f_sheads as $sh) {
 	// print_r($sh);
 	echo "<input type='checkbox' name='subhead[".$sh['username']."]' value = ".$sh['username'].">".$sh['username']."<br>";
 }
-echo "<input type='submit' name='submit' value='Alott Task'></form>";
+echo "<input type='submit' name='submit' value='Alott Task'></form>";*/
 /*
 echo "<form action='home.php' method='post'> <textarea name='task' cols='20' rows='5'></textarea><br>";
 class subhead{
@@ -91,16 +91,126 @@ echo "<input type='submit' name='submit' value='Alott Task'></form>";
 <head>
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="main.css">
+	<style>
+	body{
+	color:black;
+	background-color: #40c4ff;
+	text-align: center;
+}
+    #view{
+    	 border: 0px black solid ;
+          color:brown;
+          font-size: 25px;
+          text-align: center;
+          background-color:#e0e0e0;
+          margin-left: 10%;
+          margin-right: 10%;
+          font-family: Verdana;
+    }
+
+   #view_edit{
+    	 border: 0px black solid ;
+          color:brown;
+          font-size: 25px;
+          text-align: center;
+          background-color:#e0e0e0;
+          margin-left: 10%;
+          margin-right: 10%;
+          font-family: Verdana;
+    }
+      .completedtask{
+    margin-left: 43.5%;
+  margin-right: 40%;
+  text-align: center;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+     font-family: Verdana;
+}
+.completedtask  {
+    background-color: white;
+    color: black;
+    border: 2px solid #4CAF50;
+}
+
+.completedtask:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+.alltask{
+    margin-left: 43.5%;
+  margin-right: 40%;
+  text-align: center;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+     font-family: Verdana;
+}
+.alltask  {
+    background-color: white;
+    color: black;
+    border: 2px solid #4CAF50;
+}
+
+.alltask:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+ #alot{
+          font-size: 25px;
+          color:brown;
+          text-align: center;
+          border: 0px black solid;
+          background-color: #ffcdd2;
+          margin-left: 10%;
+          margin-right: 10%;
+           font-family: Verdana;
+          
+        }
+	</style>
 </head>
 <body>
+<br>
+<div id="alot">
+<br>
+<?php
+echo "<form action='home.php' method='post'> <textarea name='task' cols='20' rows='5'></textarea><br>";
+foreach ($f_sheads as $sh) {
+	// print_r($sh);
+	echo "<input type='checkbox' name='subhead[".$sh['username']."]' value = ".$sh['username'].">".$sh['username']."<br>";
+}
+echo "<input type='submit' name='submit' value='Alott Task'></form><br>";
+?>
+</div>
+<br>
+<br>
+<div>
 <button class="alltask">All Task</button>
 <div id="view_edit">
-
+<br>
 	<?php
 	    $e_task = $freesubhead->editanddeletetask($uname);
 	    foreach ($e_task as $t)
 	    {
-	     	echo $t['username']."=".$t['work']."=".$t['head']."<br>";
+	     	echo $t['username']." => ".$t['work']." => ".$t['head']."<br><br>";
     		if($t['head'] == $uname)
     		{   
     			echo "<textarea id=".$t['username']." name='task' cols='20' rows='5'></textarea>";
@@ -135,14 +245,16 @@ echo "<input type='submit' name='submit' value='Alott Task'></form>";
 		//$me = new alltask();
 	?>
 </div>
-
-<button class="completedtask">Show compleated task</button>
+<br>
+<button class="completedtask">Show completed task</button>
+<br>
 <div id="view">
+<br>
 	<?php
 		$c_task = $freesubhead->compleatedtask();
 		foreach($c_task as $c)
 		{
-			echo $c['name']."=>".$c['workdone']."=>".$c['given_by']."<br>";
+			echo $c['name']." => ".$c['workdone']." => ".$c['given_by']."<br><br>";
 		}
 	?>
 </div>
