@@ -185,17 +185,27 @@ echo "<input type='submit' name='submit' value='Alott Task'></form>";
            font-family: Verdana;
           
         }
+#textarea1{
+  border:2px solid black;
+}    
+th 
+{
+  text-align: center;
+}
 	</style>
+
 </head>
 <body>
 <br>
 <div id="alot">
 <br>
 <?php
-echo "<form action='home.php' method='post'> <textarea name='task' cols='20' rows='5'></textarea><br>";
+echo "Allot Task<br><form action='home.php' method='post'> <textarea placeholder='Allot Task Here' id='textarea1' class='materialize-textarea' name='task' cols='20' rows='5'></textarea><label for='textarea1'></label><br>To:<br>";
+$test = 6;
 foreach ($f_sheads as $sh) {
 	// print_r($sh);
-	echo "<input type='checkbox' name='subhead[".$sh['username']."]' value = ".$sh['username'].">".$sh['username']."<br>";
+	echo "<input id='test".$test."' type='checkbox' name='subhead[".$sh['username']."]' value = ".$sh['username']."><label for='test".$test."'>".$sh['username']."</label><br>";
+  $test++;
 }
 echo "<input type='submit' name='submit' value='Alott Task'></form><br>";
 ?>
@@ -208,22 +218,29 @@ echo "<input type='submit' name='submit' value='Alott Task'></form><br>";
 <br>
 	<?php
 	    $e_task = $freesubhead->editanddeletetask($uname);
+      echo "bro";
+      echo "<table class='bordered highlight centered responsive-table'><th>Name</th><th>Task Alloted</th><th>Alloted By</th><th>Edit</th>";
 	    foreach ($e_task as $t)
-	    {
-	     	echo $t['username']." => ".$t['work']." => ".$t['head']."<br><br>";
+	    { 
+        echo "<tr>";
+	     	echo "<td>".$t['username']."</td><td>".$t['work']."</td><td>".$t['head']."</td>";
     		if($t['head'] == $uname)
-    		{   
-    			echo "<textarea id=".$t['username']." name='task' cols='20' rows='5'></textarea>";
+    		{ 
+          echo "<td>";  
+    			echo "<textarea class='materialize-textarea' placeholder='Change Task Here' id=".$t['username']." name='task' cols='20' rows='5'></textarea>";
     			echo "<input type='text' name=".$t['username']." value=".$uname.">";
     			echo "<button class=".$t['username'].">Change Task</button>";
     			//echo "<a href='delete.php?username=".$t['username']."&'></a>";
     			//echo "<input type='submit' class=".$t['username']." value='Remove task'><br>";
-    			echo "<label><a href='delete.php?delete=true&username=".$t['username']."' class=".$t['username']."><i class='glyphicon glyphicon-log-out'></i>Remove from Task</a></label><br>";
+    			echo "<br><label><a href='delete.php?delete=true&username=".$t['username']."' class=".$t['username']."><i class='glyphicon glyphicon-log-out'></i>Remove from Task</a></label><br>";
+          echo "</td>";
 
     			//include "update.php";
     		}
-	     	
+        
+	     	echo "</tr>";
 	    }
+      echo "</table>";
 		//class alltask{
 			//public function __construct(){
 			/*	$task = $conn->prepare("SELECT * FROM taskalloted"); 
@@ -252,10 +269,14 @@ echo "<input type='submit' name='submit' value='Alott Task'></form><br>";
 <br>
 	<?php
 		$c_task = $freesubhead->compleatedtask();
+    echo "<table class='bordered highlight centered responsive-table'><th>Name</th><th>Work Done</th><th>Given By</th>";
 		foreach($c_task as $c)
-		{
-			echo $c['name']." => ".$c['workdone']." => ".$c['given_by']."<br><br>";
+		{ 
+      echo "<tr>";
+			echo "<td>".$c['name']."</td><td>".$c['workdone']."</td><td>".$c['given_by']."</td>";
+      echo "</tr>";
 		}
+    echo "</table>";
 	?>
 </div>
 <script type="text/javascript" src="jquery.js"></script>

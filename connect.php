@@ -3,7 +3,7 @@ session_start();
 
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "Sahil@Raj1998";
 $dbname = "sftaskmanager";
 
 //$DB_name = "dblogin";

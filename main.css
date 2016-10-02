@@ -1,3 +1,36 @@
+#logout_btn {
+	position:absolute;
+	top:0px;
+	right:0px;
+}
 input[type="text"]{
 	display:none;
+}
+#home {
+    		background-color: #ea80fc;
+			}
+		#username{
+			font-family: Verdana;
+			text-align: center;
+			font-size: 45px;
+			}
+		#logout{
+			color: blue;
+			font-family: Verdana;
+			font-size: 30px;
+			float:centre;
+			margin-left: 45%;
+			}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: green;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: green;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: green;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: green;
 }

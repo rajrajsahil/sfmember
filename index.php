@@ -44,6 +44,7 @@ Password <input type="password" name="password" id="password">
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<title>LOGIN</title>
+	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
@@ -59,7 +60,7 @@ Password <input type="password" name="password" id="password">
 	</style>
 
 </head>
-<body>
+<body id="index">
 	<div class="anyForm loginform" id="form">
 		<div class="container z-depth-5" id="innerform">
 			<div class="row">

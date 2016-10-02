@@ -45,7 +45,7 @@
 
 <html>
      <head>
-        <style>
+             <style>
          body {
           background-color: #64ffda;
 
@@ -63,12 +63,11 @@
         
         #getask{
           font-size: 25px;
-          color:brown;
+          
           text-align: center;
-          border: 0px black solid;
+          
           background-color: #ffcdd2;
-          margin-left: 10%;
-          margin-right: 10%;
+          
            font-family: Verdana;
           
         }
@@ -140,43 +139,51 @@ h2{
   text-align: center;
    font-family: Verdana;
 }
+th {
+  text-align: center;
+}
         </style>
      </head>
-     <body>
-     <br>
-<div id="getask">
-<br>
-<?php
-$s_task = $subhead->gettask($name);
-    foreach ($s_task as $st) {
-      echo  "TASK ALLOTED : ".$st['work']."<br> BY:".$st['head'] ;
-      $_SESSION['work'] = $st['work'];
-      $_SESSION['given_by'] = $st['head'];
-    }
-?>
+<body>
+     
+      <div class="row" id="getask">
+          <div  class="col s6">
+              <br>
+              <?php
+                  $s_task = $subhead->gettask($name);
+                  foreach ($s_task as $st)
+                  {
+                      echo  "TASK ALLOTED : ".$st['work']."<br> BY:".$st['head'] ;
+                      $_SESSION['work'] = $st['work'];
+                      $_SESSION['given_by'] = $st['head'];
+                  }
+              ?>
+              <br>
+          </div>  
+          <div class="col s6">
+              <form action="home.php" method="post" id="sub-form">
+                  <input type="checkbox" id="test5" name="grade" value="yes"><label for="test5">Completed Task</label><br>
+                  <input type="submit" class='waves-effect waves-light btn' name="submit" value="submit" class="button">
+  
+              </form>
+          </div>
+      </div>
+      <br>
+      <button id="show">ALL TASK-show</button>
+      <div id="allotedtask">
+          
+              <h2> WORK Alloted:</h2>
+              <br>
+              <?php 
+                  $alltedtask = $subhead->viewtaskalloted();
+                  echo "<table class='bordered highlight centered responsive-table'><th>Name</th><th>Work Alloted</th><th>Given By</th>";
+                  foreach ($alltedtask as $key)
+                  {   echo "<tr>";
+                      echo "<td>".$key['username']."</td><td>".$key['work']."</td><td>".$key['head']."</td>";
+                      echo "</td>";
+                  }
+                  echo "</table>";
 
-<br>
-<form action="home.php" method="post" id="sub-form">
-<label>Completed Task<input type="checkbox" name="grade" value="yes"></label><br><br>
-  <input type="submit" name="submit" value="submit" class="button">
-  <br>
-</form>
-</br>
-</div>
-<br>
-<button id="show">ALL TASK-show</button>
-<div id="allotedtask">
-<h2> WORK GOING ON:(username=>assignment=>given by)</h2>
-    <p id="work">
-    <br>
-
-	      <?php 
-              
-            $alltedtask = $subhead->viewtaskalloted();
-            foreach ($alltedtask as $key)
-            {
-                echo $key['username']." => ".$key['work']." => ".$key['head']."<br><br>";
-            }
                          /*class subhead{
 	                         private $name;
 	                          function subhead($subhead,$work,$given_by){
@@ -205,16 +212,20 @@ $s_task = $subhead->gettask($name);
                             }*/
 
 
-        ?>
-      </br>
-      <h2> WORK ALREADY COMPLETED:</h2>
-    </p>
-    <p id="work">
-        <?php
-            $comp_task = $subhead->compleatedtask();
-            foreach ($comp_task as $ct) {
-              echo $ct['name']." => "." ".$ct['workdone']." => "." ".$ct['given_by']. "<br>";
-            }
+              ?>
+              <br>
+              <h2> WORK ALREADY COMPLETED:</h2>
+         
+          <p id="work">
+              <?php
+                  $comp_task = $subhead->compleatedtask();
+                  echo "<table class='bordered highlight centered responsive-table'><th>Name</th><th>Work Done</th><th>Given By</th>";
+                  foreach ($comp_task as $ct)
+                  {   echo "<tr>";
+                      echo "<td>".$ct['name']."</td><td>".$ct['workdone']."</td><td>".$ct['given_by']."</td>";
+                      echo "</tr>";
+                  }
+                  echo "</table>";
                           /*class allsubhead{
 	                         private $name;
 	                         function allsubhead($subhead,$work,$given_by){
@@ -242,9 +253,10 @@ $s_task = $subhead->gettask($name);
                              catch(PDOException $e){
 	                         echo "Error: " . $e->getMessage();
                            }*/
-        ?>
-            </p>
-</div>
+              ?>
+              </p>
+      </div>
+
       <script type="text/javascript" src="jquery.js"></script>
       <!--  <script type="text/javascript" src="subhead.js"></script>-->
       <script type="text/javascript">
@@ -255,6 +267,5 @@ $s_task = $subhead->gettask($name);
           });
       </script>
         
-      </body>
-      </head>
+</body>
 </html>

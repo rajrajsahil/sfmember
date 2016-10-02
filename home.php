@@ -18,6 +18,11 @@ $position = $userRow['position'];*/
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+<link rel="stylesheet" type="text/css" href="main.css">
 <style>
 body {
     background-color: #ea80fc;
@@ -27,20 +32,20 @@ h1{
 	text-align: center;
 	font-size: 45px;
 }
-#logout{
-	color: blue;
-	font-family: Verdana;
-	font-size: 30px;
-	float:centre;
-	margin-left: 45%;
-}
+
 </style>
     <title></title>
 </head>
 <body>
-<h1><?php echo "Welcome "."'".$uname."'";
+<div class="col s12 m7">
+<h1 class="header"><?php echo "Welcome "."".$uname."";
 ?></h1>
-<label><a href="logout.php?logout=true" id="logout"><i class="glyphicon glyphicon-log-out"></i> LOGOUT</a></label><br>
+</div>
+<div class="row" id="logout_btn">
+<div class="col s12">
+<label><a class='waves-light btn' href="logout.php?logout=true" id="logout"><i class="glyphicon glyphicon-log-out"></i> LOGOUT </a></label>
+</div>
+</div>
 </body>
 </html>
 <?php
