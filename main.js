@@ -99,7 +99,8 @@ $.ajax({
     data: {sname : me , task : work},
     cache: false,
     success: function(data){
-     alert(data);
+     //alert(data);
+     window.location.replace("home.php");
   }
 
 });
