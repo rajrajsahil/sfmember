@@ -46,102 +46,7 @@
 <html>
      <head>
              <style>
-         body {
-          background-color: #64ffda;
-
-        }
-        #work{
-          border: 0px black solid ;
-          color:brown;
-          font-size: 25px;
-          text-align: center;
-          background-color: #ffcdd2;
-          margin-left: 10%;
-          margin-right: 10%;
-          font-family: Verdana;
-        }
-        
-        #getask{
-          font-size: 25px;
-          
-          text-align: center;
-          
-          background-color: #ffcdd2;
-          
-           font-family: Verdana;
-          
-        }
-        #sub-form{
-          text-align:center;
-          font-size:25px;
-        }
-        label{
-          font-size: 20px;
-
-        }
-        .button {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 10px 25px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.4s;
-    cursor: pointer;
-     font-family: Verdana;
-}
-.button {
-    background-color: white;
-    color: black;
-    border: 2px solid #4CAF50;
-}
-
-.button:hover {
-    background-color: #4CAF50;
-    color: white;
-}  #show {
-
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 10px 25px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.4s;
-    cursor: pointer;
-     font-family: Verdana;
-}
-#show {
-    background-color: white;
-    color: black;
-    border: 2px solid #4CAF50;
-}
-
-#show:hover {
-    background-color: #4CAF50;
-    color: white;
-}
-#show{
-  margin-left: 43.5%;
-  margin-right: 40%;
-  text-align: center;
-
-}
-h2{
-  text-align: center;
-   font-family: Verdana;
-}
-th {
-  text-align: center;
-}
+         
         </style>
      </head>
 <body>
@@ -169,7 +74,7 @@ th {
           </div>
       </div>
       <br>
-      <button id="show">ALL TASK-show</button>
+      <button id="show" class="btn waves-effect waves-light">ALL TASK-show</button>
       <div id="allotedtask">
           
               <h2> WORK Alloted:</h2>
